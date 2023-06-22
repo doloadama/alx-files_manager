@@ -12,11 +12,6 @@ ExpressJS
 Kue
 **By: Guillaume, CTO at Holberton School**
 **Weight: 1**
-Project to be done in teams of 2 people (your team: Adama Dolo)
-Project will start Jun 22, 2023 3:00 AM, must end by Jun 29, 2023 3:00 AM
-Checker will be released at Jun 23, 2023 9:00 PM
-Manual QA review must be done (request it when you are done with the project)
-An auto review will be launched at the deadline
 
 This project is a summary of this back-end trimester: authentication, NodeJS, MongoDB, Redis, pagination, and background processing.
 
