@@ -1,3 +1,4 @@
+// utils/redis.js
 import redis from 'redis';
 
 class RedisClient {
@@ -27,11 +28,11 @@ class RedisClient {
 
   async set(key, value, duration) {
     return new Promise((resolve, reject) => {
-      this.client.setex(key, duration, value, (error, result) => {
+      this.client.setex(key, duration, value, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(result);
+          resolve();
         }
       });
     });
@@ -39,11 +40,11 @@ class RedisClient {
 
   async del(key) {
     return new Promise((resolve, reject) => {
-      this.client.del(key, (error, result) => {
+      this.client.del(key, (error) => {
         if (error) {
           reject(error);
         } else {
-          resolve(result);
+          resolve();
         }
       });
     });
