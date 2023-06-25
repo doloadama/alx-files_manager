@@ -33,6 +33,17 @@ class DBClient {
   async nbFiles() {
     return this.db.collection('files').countDocuments();
   }
+
+  async getUser({ email }) {
+    const user = await this.db.collection('users').findOne({ email });
+    return user;
+  }
+
+  async createUser({ email, password }) {
+    const newUser = { email, password };
+    const result = await this.db.collection('users').insertOne(newUser);
+    return result.ops[0];
+  }
 }
 
 const dbClient = new DBClient();
