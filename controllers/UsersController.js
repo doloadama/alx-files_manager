@@ -1,5 +1,5 @@
-import dbClient from '../utils/db';
-import sha1 from 'sha1'
+const dbClient = require('../utils/db');
+const sha1 = require('sha1');
 
 
 class UsersController {
@@ -37,4 +37,4 @@ class UsersController {
   }
 }
 
-export default UsersController;
+module.exports = UsersController;
