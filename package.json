@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "node -r @babel/register server.js",
+  
+  "type": "module",
+    "scripts": {
+    "start": "node --experimental-modules server.js",
     "lint": "./node_modules/.bin/eslint",
     "check-lint": "lint [0-9]*.js",
     "start-server": "nodemon --exec babel-node --presets @babel/preset-env ./server.js",
@@ -42,4 +44,5 @@
     "request": "^2.88.0",
     "sinon": "^7.5.0"
   }
+
 }
