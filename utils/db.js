@@ -6,43 +6,40 @@ class DBClient {
     const port = process.env.DB_PORT || 27017;
     const database = process.env.DB_DATABASE || 'files_manager';
 
-    this.client = new MongoClient(`mongodb://${host}:${port}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
-    this.client.connect((err) => {
-      if (err) {
-        console.error('Database connection error:', err);
-      } else {
-        console.log('Database connection successful');
-      }
-    });
-
-    this.db = this.client.db(database);
+    const uri = `mongodb://${host}:${port}`;
+    this.client = new MongoClient(uri);
+    this.database = database;
   }
 
-  isAlive() {
-    return this.client.isConnected();
+  async isAlive() {
+    try {
+      await this.client.connect();
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   async nbUsers() {
-    return this.db.collection('users').countDocuments();
+    try {
+      await this.client.connect();
+      const collection = this.client.db(this.database).collection('users');
+      const count = await collection.countDocuments();
+      return count;
+    } catch (error) {
+      return 0;
+    }
   }
 
   async nbFiles() {
-    return this.db.collection('files').countDocuments();
-  }
-
-  async getUser({ email }) {
-    const user = await this.db.collection('users').findOne({ email });
-    return user;
-  }
-
-  async createUser({ email, password }) {
-    const newUser = { email, password };
-    const result = await this.db.collection('users').insertOne(newUser);
-    return result.ops[0];
+    try {
+      await this.client.connect();
+      const collection = this.client.db(this.database).collection('files');
+      const count = await collection.countDocuments();
+      return count;
+    } catch (error) {
+      return 0;
+    }
   }
 }
 
