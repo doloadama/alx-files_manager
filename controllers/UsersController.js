@@ -35,6 +35,24 @@ class UsersController {
     const { _id, email: userEmail } = newUser.ops[0];
     return res.status(201).json({ id: _id, email: userEmail });
   }
+  export const getMe = (req, res) => {
+    const token = req.header('X-Token');
+    if (!token) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  
+    // Retrieve the user based on the token
+    const userId = dbClient.get(`auth_${token}`);
+  
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  
+    // Get the user object (email and id only)
+    const user = dbClient.getUserById(userId);
+  
+    return res.json({ email: user.email, id: user.id });
+  };
 }
 
 module.exports = UsersController;
